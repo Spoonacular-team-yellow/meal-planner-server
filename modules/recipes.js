@@ -21,8 +21,11 @@ async function getRecipes(req, res, next) {
             }
         })
         res.status(200).send(recipes.data);
+    } catch (error){
+        next(error);
+    }
 
-const db = mongoose.connection;
+}
 
 async function getRecipes(req, res, next) {
     try {
@@ -49,7 +52,7 @@ async function getOneRecipe(req, res, next) {
     } catch (error) {
         next(error);
     }
-}
+};
 
 module.exports = {
     getRecipes: getRecipes,
