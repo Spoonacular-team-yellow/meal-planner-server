@@ -6,12 +6,9 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const axios = require('axios');
 
-
 const db = mongoose.connection;
 let API_URL = process.env.API_URL;
 let API_KEY = process.env.API_KEY;
-
-
 
 async function getRecipes(req, res, next) {
     try {
@@ -24,6 +21,14 @@ async function getRecipes(req, res, next) {
             }
         })
         res.status(200).send(recipes.data);
+
+const db = mongoose.connection;
+
+async function getRecipes(req, res, next) {
+    try {
+        console.log('yo');
+        res.status(200).send('All Recipes');
+
     } catch (error) {
         next(error);
     }
@@ -31,6 +36,7 @@ async function getRecipes(req, res, next) {
 
 async function getOneRecipe(req, res, next) {
     try {
+
         let testId = 665261;
         let recipe = await axios.get(`${API_URL}/${testId}/information`, {
             params: {
@@ -39,6 +45,7 @@ async function getOneRecipe(req, res, next) {
             }
         });
         res.status(200).send(recipe.data);
+
     } catch (error) {
         next(error);
     }
