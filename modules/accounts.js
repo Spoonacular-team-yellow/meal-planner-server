@@ -10,6 +10,7 @@ const db = mongoose.connection;
 
 async function getAccount(req, res, next) {
     try {
+        
         res.status(200).send('Account');
     } catch (error) {
         next(error);
