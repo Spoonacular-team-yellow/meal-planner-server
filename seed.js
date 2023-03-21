@@ -12,6 +12,7 @@ async function seed(){
 
     await Account.create({
         username: "user 1",
+        email: "user1@gmail.com",
         recipes: [23, 34, 56]
     })
 
@@ -19,6 +20,7 @@ async function seed(){
 
     await Account.create({
         username: "user 2",
+        email: "user2@gmail.com",
         recipes: [34, 54, 9583]
     })
 
@@ -26,6 +28,7 @@ async function seed(){
 
     await Account.create({
         username: "user 3",
+        email: "user3@gmail.com",
         recipes: [89, 756, 23, 837, 80]
     })
 

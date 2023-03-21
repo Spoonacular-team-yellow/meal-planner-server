@@ -4,6 +4,7 @@ const { Schema } = mongoose;
 
 const accountSchema = new Schema({
     username: {type: String, required: true},
+    email: {type: String, required: true},
     recipes: {type: Array, required: true},
 });
 

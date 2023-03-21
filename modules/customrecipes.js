@@ -10,6 +10,7 @@ const db = mongoose.connection;
 
 async function getCustomRecipe(req, res, next) {
     try {
+        
         res.status(200).send('Custom Recipe');
     } catch (error) {
         next(error);
