@@ -64,20 +64,20 @@ async function saveRecipe(req, res, next) {
             res.send('Invalid token');
         } else {
             try {
-        
-                let testEmail = "user1@gmail.com";
-                // get the recipe id from req.body
-                let testRecipeId = '641a0ac61b6f70be82ae3e71'
+                
+                let recipe = req.body;
+                console.log('req.body: ', recipe)
+
         
                 let account = await Account.findOneAndUpdate({
-                    email: testEmail
+                    email: req.params.email
                 }, {
-                    $push: {"recipes": testRecipeId}
+                    $push: {"recipes": recipe}
                 });
                 console.log(account)
         
                 // account.push(account)
-                res.status(200).send(account);
+                res.status(200).send('account');
         
             } catch (error) {
                 next(error);
