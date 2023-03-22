@@ -12,29 +12,20 @@ let API_KEY = process.env.API_KEY;
 
 async function getRecipes(req, res, next) {
     try {
-        let test_ingredients = 'potato, chicken, broccoli';
+        let ingredients = req.query.ingredients;
+        console.log(ingredients);
         let recipes = await axios.get(`${API_URL}/findByIngredients`, {
             params: {
                 apiKey: API_KEY,
-                ingredients: test_ingredients, 
+                ingredients: ingredients,
                 number: 10
             }
-        })
+        });
         res.status(200).send(recipes.data);
     } catch (error){
         next(error);
     }
 
-}
-
-async function getRecipes(req, res, next) {
-    try {
-        console.log('yo');
-        res.status(200).send('All Recipes');
-
-    } catch (error) {
-        next(error);
-    }
 }
 
 async function getOneRecipe(req, res, next) {
@@ -52,7 +43,7 @@ async function getOneRecipe(req, res, next) {
     } catch (error) {
         next(error);
     }
-};
+}
 
 module.exports = {
     getRecipes: getRecipes,
