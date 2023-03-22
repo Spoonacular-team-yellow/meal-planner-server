@@ -26,7 +26,6 @@ async function getAccount(req, res, next) {
                 let account = await Account.find({
                     email: email
                 });
-                console.log(account);
                 if (account.length > 0){
                     res.status(200).send(account);
                 }
@@ -61,7 +60,6 @@ async function saveRecipe(req, res, next) {
         }, {
             $push: {"recipes": testRecipeId}
         });
-        console.log(account)
 
         // account.push(account)
         res.status(200).send(account);
