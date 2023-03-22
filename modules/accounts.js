@@ -8,6 +8,7 @@ const axios = require('axios');
 
 const DATABASE_URL = process.env.DATABASE_URL;
 const Account = require('../models/account');
+const CustomRecipe = require('../models/customRecipes');
 
 mongoose.connect(DATABASE_URL);
 const db = mongoose.connection;
@@ -38,19 +39,20 @@ async function createAccount(req, res, next) {
 async function saveRecipe(req, res, next) {
     try {
 
-        let testEmail = "user1@gmail.com";
-        // get the recipe id from req.body
-        let testRecipeId = '641a0ac61b6f70be82ae3e71'
 
-        let account = await Account.findOneAndUpdate({
-            email: testEmail
-        }, {
-            $push: {"recipes": testRecipeId}
-        });
-        console.log(account)
+        // get the recipe id from req.body
+        let recipe = req.body
+        console.log(recipe)
+        // let account = await Account.findOneAndUpdate({
+        //     email: testEmail
+        // }, {
+        //     $push: {"recipes": testRecipeId}
+        // });
+        // console.log(account)
 
         // account.push(account)
-        res.status(200).send(account);
+        // res.status(200).send(account);
+        res.status(200).send("recipe saved");
 
     } catch (error) {
         next(error);

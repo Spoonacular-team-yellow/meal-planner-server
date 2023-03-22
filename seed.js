@@ -39,6 +39,7 @@ async function seed(){
         steps: ["1", 3, 4], 
         ingredients: [34, 345342],
         imageUrl: "aslkdfjasklfj",
+        readyInMinutes: 35,
         title: "first recipe",
         sourceUrl: "alksdfjak",
         sourceName: "the belly sisters"
@@ -49,6 +50,7 @@ async function seed(){
         steps: ["1", 3, 4, 478323], 
         ingredients: [34],
         imageUrl: "aslkdfjasklfj",
+        readyInMinutes: 45,
         title: "second recipe",
         sourceUrl: "alksdfjak",
         sourceName: "the belly sisters"
