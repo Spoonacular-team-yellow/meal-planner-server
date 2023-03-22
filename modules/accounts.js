@@ -5,6 +5,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const axios = require('axios');
+const verifyUser = require('./auth');
 
 const DATABASE_URL = process.env.DATABASE_URL;
 const Account = require('../models/account');
@@ -14,69 +15,103 @@ mongoose.connect(DATABASE_URL);
 const db = mongoose.connection;
 
 async function getAccount(req, res, next) {
-    try {
+    verifyUser(req, async(err, user) => {
+        if (err) {
+            console.error(err);
+            res.send('Invalid token');
+        } else {
+            try {
 
-        //from route params
-        let email = req.params.email;
-        let account = await Account.find({
-            email: email
-        })
-        res.status(200).send(account);
-    } catch (error) {
-        next(error);
-    }
+                //from route params
+                let email = req.params.email;
+                let account = await Account.find({
+                    email: email
+                });
+                if (account.length > 0){
+                    res.status(200).send(account);
+                }
+                else {
+                    res.status(200).send(false);
+                }
+            } catch (error) {
+                next(error);
+            }
+        }
+    });
 }
 
 async function createAccount(req, res, next) {
-    try {
-
-        res.status(200).send('Account created');
-    } catch (error) {
-        next(error);
-    }
+    verifyUser(req, async(err, user) => {
+        if (err) {
+            console.error(err);
+            res.send('Invalid token');
+        } else {
+            try {
+                let createdAccount = await Account.create(req.body);
+                res.status(200).send(createdAccount);
+            } catch (error) {
+                next(error);
+            }
+        }
+    })
+    
 }
 
 async function saveRecipe(req, res, next) {
-    try {
-
-
-        // get the recipe id from req.body
-        let recipe = req.body
-        console.log(recipe)
-        // let account = await Account.findOneAndUpdate({
-        //     email: testEmail
-        // }, {
-        //     $push: {"recipes": testRecipeId}
-        // });
-        // console.log(account)
-
-        // account.push(account)
-        // res.status(200).send(account);
-        res.status(200).send("recipe saved");
-
-    } catch (error) {
-        next(error);
-    }
+    verifyUser(req, async(err, user) => {
+        if (err) {
+            console.error(err);
+            res.send('Invalid token');
+        } else {
+            try {
+        
+                let testEmail = "user1@gmail.com";
+                // get the recipe id from req.body
+                let testRecipeId = '641a0ac61b6f70be82ae3e71'
+        
+                let account = await Account.findOneAndUpdate({
+                    email: testEmail
+                }, {
+                    $push: {"recipes": testRecipeId}
+                });
+                console.log(account)
+        
+                // account.push(account)
+                res.status(200).send(account);
+        
+            } catch (error) {
+                next(error);
+            }
+        }
+    })
 }
 
 async function removeRecipe(req, res, next) {
-    try {
 
-
-        let testEmail = "user1@gmail.com";
-        // get the recipe id from req.body
-        let testRecipeId = '641a0ac61b6f70be82ae3e71'
-
-        let account = await Account.findOneAndUpdate({
-            email: testEmail
-        }, {
-            $pull: {"recipes": testRecipeId}
-        });
-
-        res.status(200).send('Recipe removed');
-    } catch (error) {
-        next(error);
-    }
+    verifyUser(req, async(err, user) => {
+        if (err) {
+            console.error(err);
+            res.send('Invalid token');
+        } else {
+            try {
+        
+        
+                let testEmail = "user1@gmail.com";
+                // get the recipe id from req.body
+                let testRecipeId = '641a0ac61b6f70be82ae3e71'
+        
+                let account = await Account.findOneAndUpdate({
+                    email: testEmail
+                }, {
+                    $pull: {"recipes": testRecipeId}
+                });
+        
+                res.status(200).send('Recipe removed');
+            } catch (error) {
+                next(error);
+            }
+        }
+    })
 }
 
 module.exports = {

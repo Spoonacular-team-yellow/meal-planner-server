@@ -1,20 +1,12 @@
 'use strict';
 
-// jwt - JSON Web Token - pronounced jot
-// install with: "npm i jsonwebtoken"
 const jwt = require('jsonwebtoken');
-
-// jwks - JSON Web Key Set - prounced ja-wicks
-// install with: "npm i jwks-rsa
 const jwksClient = require('jwks-rsa');
 
-// the jwksUri comesd from your Auth0 account page (the "key page"). Account Page -> advanced settings -> Endpoints -> 0auth -> JSON Web Key Set
 const client = jwksClient({
   jwksUri: process.env.JWKS_URI
 });
 
-// getkewy function to make things work
-// this comes from the jsonwebtoken docs
 // https://www.npmjs.com/package/jsonwebtoken (search for auth0)
 function getKey(header, callback) {
   client.getSigningKey(header.kid, function(err, key) {
@@ -28,7 +20,6 @@ function verifyUser(req, errorFirstOrUserCallbackFunction) {
   try {
     // extract the token from the user's request
     const token = req.headers.authorization.split(' ')[1];
-    console.log(token);
     // from jsonwebtoken docs
     jwt.verify(token, getKey, {}, errorFirstOrUserCallbackFunction)
   } catch(error) {
