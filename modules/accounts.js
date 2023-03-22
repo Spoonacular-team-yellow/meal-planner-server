@@ -40,53 +40,77 @@ async function getAccount(req, res, next) {
 }
 
 async function createAccount(req, res, next) {
-    try {
-        let createdAccount = await Account.create(req.body);
-        res.status(200).send(createdAccount);
-    } catch (error) {
-        next(error);
-    }
+    verifyUser(req, async(err, user) => {
+        if (err) {
+            console.error(err);
+            res.send('Invalid token');
+        } else {
+            try {
+                let createdAccount = await Account.create(req.body);
+                res.status(200).send(createdAccount);
+            } catch (error) {
+                next(error);
+            }
+        }
+    })
+    
 }
 
 async function saveRecipe(req, res, next) {
-    try {
-
-        let testEmail = "user1@gmail.com";
-        // get the recipe id from req.body
-        let testRecipeId = '641a0ac61b6f70be82ae3e71'
-
-        let account = await Account.findOneAndUpdate({
-            email: testEmail
-        }, {
-            $push: {"recipes": testRecipeId}
-        });
-
-        // account.push(account)
-        res.status(200).send(account);
-
-    } catch (error) {
-        next(error);
-    }
+    verifyUser(req, async(err, user) => {
+        if (err) {
+            console.error(err);
+            res.send('Invalid token');
+        } else {
+            try {
+        
+                let testEmail = "user1@gmail.com";
+                // get the recipe id from req.body
+                let testRecipeId = '641a0ac61b6f70be82ae3e71'
+        
+                let account = await Account.findOneAndUpdate({
+                    email: testEmail
+                }, {
+                    $push: {"recipes": testRecipeId}
+                });
+                console.log(account)
+        
+                // account.push(account)
+                res.status(200).send(account);
+        
+            } catch (error) {
+                next(error);
+            }
+        }
+    })
 }
 
 async function removeRecipe(req, res, next) {
-    try {
 
-
-        let testEmail = "user1@gmail.com";
-        // get the recipe id from req.body
-        let testRecipeId = '641a0ac61b6f70be82ae3e71'
-
-        let account = await Account.findOneAndUpdate({
-            email: testEmail
-        }, {
-            $pull: {"recipes": testRecipeId}
-        });
-
-        res.status(200).send('Recipe removed');
-    } catch (error) {
-        next(error);
-    }
+    verifyUser(req, async(err, user) => {
+        if (err) {
+            console.error(err);
+            res.send('Invalid token');
+        } else {
+            try {
+        
+        
+                let testEmail = "user1@gmail.com";
+                // get the recipe id from req.body
+                let testRecipeId = '641a0ac61b6f70be82ae3e71'
+        
+                let account = await Account.findOneAndUpdate({
+                    email: testEmail
+                }, {
+                    $pull: {"recipes": testRecipeId}
+                });
+        
+                res.status(200).send('Recipe removed');
+            } catch (error) {
+                next(error);
+            }
+        }
+    })
 }
 
 module.exports = {
