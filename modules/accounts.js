@@ -26,7 +26,6 @@ async function getAccount(req, res, next) {
                 let account = await Account.find({
                     email: email
                 });
-                console.log(account);
                 if (account.length > 0){
                     res.status(200).send(account);
                 }
@@ -58,7 +57,6 @@ async function createAccount(req, res, next) {
 }
 
 async function saveRecipe(req, res, next) {
-
     verifyUser(req, async(err, user) => {
         if (err) {
             console.error(err);
@@ -85,7 +83,6 @@ async function saveRecipe(req, res, next) {
             }
         }
     })
-
 }
 
 async function removeRecipe(req, res, next) {
