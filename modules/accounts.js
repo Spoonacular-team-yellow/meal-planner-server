@@ -66,8 +66,6 @@ async function saveRecipe(req, res, next) {
             try {
                 
                 let recipe = req.body;
-                console.log('req.body: ', recipe)
-
         
                 let account = await Account.findOneAndUpdate({
                     email: req.params.email
