@@ -68,11 +68,13 @@ async function saveRecipe(req, res, next) {
                 let account = await Account.findOne({email: req.params.email});
                 let gotSet = false;
                 let newRecipes = [...account.recipes];
+                console.log(newRecipes);
                 for (let i = 0; i < account.recipes.length; i++) {
-                    console.log(account.recipes[i]._id + ' ' + req.body._id, 'test');
-                    if (account.recipes[i]._id === req.body._id) {
-                        newRecipes[i] = recipe;
-                        gotSet = true;
+                    if (Object.hasOwn(account.recipes[i], '_id')) {
+                        if (account.recipes[i]._id === req.body._id) {
+                            newRecipes[i] = recipe;
+                            gotSet = true;
+                        }
                     }
                 }
                 if (!gotSet) {
@@ -82,14 +84,6 @@ async function saveRecipe(req, res, next) {
                 let response = await Account.findOneAndUpdate({
                     email: req.params.email
                 }, {$set: {"recipes": newRecipes}});
-                /*let account = await Account.findOneAndUpdate({
-                    email: req.params.email
-                }, {
-                    $push: {"recipes": recipe}
-                    $set: { "recipes" : { $elemMatch : {_id: req.body.id}}}
-                }); */
-        
-                // account.push(account)
                 res.status(200).send(response);
         
             } catch (error) {
