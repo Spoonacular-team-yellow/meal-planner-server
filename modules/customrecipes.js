@@ -47,8 +47,7 @@ async function createCustomRecipe(req, res, next) {
 
             try {
         
-                let recipe = req.params.body
-        
+                let recipe = req.body;
                 /*let recipe = {
                     recipeId: 476338,
                     steps: ["1", 3, 4, 478323, "tsjdkjfj"], 
@@ -68,14 +67,13 @@ async function createCustomRecipe(req, res, next) {
                     sourceUrl: recipe.sourceUrl,
                     sourceName: recipe.sourceName
                 });
-        
                 res.status(200).send(newRecipe);
         
             } catch (error) {
                 next(error);
             }
         }
-    })
+    });
 }
 
 async function updateCustomRecipe(req, res, next) {
@@ -86,14 +84,11 @@ async function updateCustomRecipe(req, res, next) {
         } else {
 
             try {
-        
-        
                 let id = req.params.id;
-        
                 let updatedRecipe = req.body;
+
                 let recipeToUpdate = await CustomRecipe.findByIdAndUpdate(id, updatedRecipe, {new: true, overwrite: true});
                 res.status(200).send(recipeToUpdate);
-        
             } catch (error) {
                 next(error);
             }
@@ -112,7 +107,7 @@ async function deleteCustomRecipe(req, res, next) {
         
                 let id = req.params.id;
         
-                await CustomRecipe.deleteOne({_id: id})
+                await CustomRecipe.deleteOne({_id: id});
         
                 res.status(200).send('Custom recipe deleted');
             } catch (error) {
