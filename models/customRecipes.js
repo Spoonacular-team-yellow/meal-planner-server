@@ -11,7 +11,7 @@ const customRecipesSchema = new Schema({
     readyInMinutes: {type: Number, required: true},
     sourceUrl: {type: String, required: true},
     sourceName: {type: String, required: true},
-    wasModified: {type: Boolean, required: true, default: false}
+    wasModified: {type: Boolean, required: true}
 });
 
 const CustomRecipesModel = mongoose.model("CustomRecipes", customRecipesSchema);

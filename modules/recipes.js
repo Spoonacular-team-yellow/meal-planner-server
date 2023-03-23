@@ -19,7 +19,6 @@ async function getRecipes(req, res, next) {
         } else {
             try {
                 let ingredients = req.query.ingredients;
-                console.log(ingredients);
                 let recipes = await axios.get(`${API_URL}/findByIngredients`, {
                     params: {
                         apiKey: API_KEY,
