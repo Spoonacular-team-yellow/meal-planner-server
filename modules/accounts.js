@@ -64,17 +64,27 @@ async function saveRecipe(req, res, next) {
             res.send('Invalid token');
         } else {
             try {
-                
                 let recipe = req.body;
-        
-                let account = await Account.findOneAndUpdate({
+                let account = await Account.findOne({email: req.params.email});
+                let gotSet = false;
+                let newRecipes = [...account.recipes];
+                console.log(newRecipes);
+                for (let i = 0; i < account.recipes.length; i++) {
+                    if (Object.hasOwn(account.recipes[i], '_id')) {
+                        if (account.recipes[i]._id === req.body._id) {
+                            newRecipes[i] = recipe;
+                            gotSet = true;
+                        }
+                    }
+                }
+                if (!gotSet) {
+                    newRecipes.push(recipe);
+                }
+                console.log(newRecipes, 'this');
+                let response = await Account.findOneAndUpdate({
                     email: req.params.email
-                }, {
-                    $push: {"recipes": recipe}
-                });
-        
-                // account.push(account)
-                res.status(200).send('account');
+                }, {$set: {"recipes": newRecipes}});
+                res.status(200).send(response);
         
             } catch (error) {
                 next(error);
@@ -91,25 +101,22 @@ async function removeRecipe(req, res, next) {
             res.send('Invalid token');
         } else {
             try {
-        
-        
-                /*let testEmail = "user1@gmail.com";
-                // get the recipe id from req.body
-                let testRecipeId = '641a0ac61b6f70be82ae3e71'*/
                 let param = Object.hasOwn(req.body, '_id')
                 ? {"recipes": {"_id": req.body._id}}
                 : {"recipes": {"recipeId": req.body.id}};
+                console.log(param);
                 let account = await Account.findOneAndUpdate({
                     email: req.params.email
                 }, {
                     $pull: param
-                });
+                }, {new: true});
+                console.log(account, 'yo');
                 res.status(200).send(account);
             } catch (error) {
                 next(error);
             }
         }
-    })
+    });
 }
 
 module.exports = {
