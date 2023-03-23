@@ -58,8 +58,8 @@ app.post('/accounts', createAccount);
 
 app.get('/accounts/:email', getAccount);
 
-app.put('/accounts/list/save/:id', saveRecipe);
-app.put('/accounts/list/remove/:id', removeRecipe);
+app.put('/accounts/list/save/:email', saveRecipe);
+app.put('/accounts/list/remove/:email', removeRecipe);
 
 
 app.get('*', (request, response) => {

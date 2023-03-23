@@ -43,8 +43,7 @@ async function getOneRecipe(req, res, next) {
         } else {
             try {
         
-                let testId = 665261;
-                let recipe = await axios.get(`${API_URL}/${testId}/information`, {
+                let recipe = await axios.get(`${API_URL}/${req.params.id}/information`, {
                     params: {
                         apiKey: API_KEY,
                         includeNutrition: false

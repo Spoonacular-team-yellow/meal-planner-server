@@ -8,6 +8,7 @@ const customRecipesSchema = new Schema({
     ingredients: {type: Array, required: true},
     imageUrl: {type: String, required: true},
     title: {type: String, required: true},
+    readyInMinutes: {type: Number, required: true},
     sourceUrl: {type: String, required: true},
     sourceName: {type: String, required: true},
 });
