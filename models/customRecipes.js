@@ -10,6 +10,7 @@ const customRecipesSchema = new Schema({
     title: {type: String, required: true},
     sourceUrl: {type: String, required: true},
     sourceName: {type: String, required: true},
+    readyInMinutes: {type: String, required: true}
 });
 
 const CustomRecipesModel = mongoose.model("CustomRecipes", customRecipesSchema);

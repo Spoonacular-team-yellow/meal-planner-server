@@ -8,7 +8,17 @@ mongoose.connect(process.env.DATABASE_URL);
 const Account = require('./models/account');
 
 const CustomRecipes = require('./models/customRecipes');
-async function seed(){
+
+async function removeStuff() {
+    let account = await Account.findOneAndUpdate({
+        email: "yoondan24@gmail.com"
+    }, {
+        recipes:[]
+    });
+    mongoose.disconnect();
+}
+
+/*async function seed(){
 
     await Account.create({
         username: "user 1",
@@ -56,6 +66,7 @@ async function seed(){
 
     console.log("User 3 was created!");
     mongoose.disconnect();
-};
+};*/
 
-seed();
+//seed();
+removeStuff();

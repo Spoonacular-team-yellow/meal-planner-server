@@ -47,9 +47,9 @@ async function createCustomRecipe(req, res, next) {
 
             try {
         
-                // let recipe = req.params.body
+                let recipe = req.params.body
         
-                let recipe = {
+                /*let recipe = {
                     recipeId: 476338,
                     steps: ["1", 3, 4, 478323, "tsjdkjfj"], 
                     ingredients: [34, 4838],
@@ -57,7 +57,7 @@ async function createCustomRecipe(req, res, next) {
                     title: "new recipe",
                     sourceUrl: "alksdfjak",
                     sourceName: "the belly brothers"
-                }
+                }*/
         
                 let newRecipe = await CustomRecipe.create({
                     recipeId: recipe.recipeId,
@@ -67,7 +67,7 @@ async function createCustomRecipe(req, res, next) {
                     title: recipe.title,
                     sourceUrl: recipe.sourceUrl,
                     sourceName: recipe.sourceName
-                })
+                });
         
                 res.status(200).send(newRecipe);
         
@@ -90,7 +90,7 @@ async function updateCustomRecipe(req, res, next) {
         
                 let id = req.params.id;
         
-                let updatedRecipe = req.body
+                let updatedRecipe = req.body;
                 let recipeToUpdate = await CustomRecipe.findByIdAndUpdate(id, updatedRecipe, {new: true, overwrite: true});
                 res.status(200).send(recipeToUpdate);
         

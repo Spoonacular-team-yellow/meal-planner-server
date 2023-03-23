@@ -64,16 +64,16 @@ async function saveRecipe(req, res, next) {
         } else {
             try {
         
-                let testEmail = "user1@gmail.com";
+                /*let testEmail = "user1@gmail.com";
                 // get the recipe id from req.body
-                let testRecipeId = '641a0ac61b6f70be82ae3e71'
+                let testRecipeId = '641a0ac61b6f70be82ae3e71'*/
         
                 let account = await Account.findOneAndUpdate({
-                    email: testEmail
+                    email: req.params.email
                 }, {
-                    $push: {"recipes": testRecipeId}
+                    $push: {"recipes": req.body}
                 });
-                console.log(account)
+                console.log(account);
         
                 // account.push(account)
                 res.status(200).send(account);
@@ -95,17 +95,16 @@ async function removeRecipe(req, res, next) {
             try {
         
         
-                let testEmail = "user1@gmail.com";
+                /*let testEmail = "user1@gmail.com";
                 // get the recipe id from req.body
-                let testRecipeId = '641a0ac61b6f70be82ae3e71'
-        
+                let testRecipeId = '641a0ac61b6f70be82ae3e71'*/
+                console.log(req.body.id);
                 let account = await Account.findOneAndUpdate({
-                    email: testEmail
+                    email: req.params.email
                 }, {
-                    $pull: {"recipes": testRecipeId}
+                    $pull: {"recipes": {"recipeId": req.body.id}}
                 });
-        
-                res.status(200).send('Recipe removed');
+                res.status(200).send(account);
             } catch (error) {
                 next(error);
             }

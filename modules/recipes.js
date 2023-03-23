@@ -19,7 +19,6 @@ async function getRecipes(req, res, next) {
         } else {
             try {
                 let ingredients = req.query.ingredients;
-                console.log(ingredients);
                 let recipes = await axios.get(`${API_URL}/findByIngredients`, {
                     params: {
                         apiKey: API_KEY,
@@ -42,9 +41,9 @@ async function getOneRecipe(req, res, next) {
             res.send('Invalid token');
         } else {
             try {
-        
-                let testId = 665261;
-                let recipe = await axios.get(`${API_URL}/${testId}/information`, {
+                let id = req.params.id;
+                console.log(id);
+                let recipe = await axios.get(`${API_URL}/${id}/information`, {
                     params: {
                         apiKey: API_KEY,
                         includeNutrition: false
