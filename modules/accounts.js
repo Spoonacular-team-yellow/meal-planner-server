@@ -9,6 +9,7 @@ const verifyUser = require('./auth');
 
 const DATABASE_URL = process.env.DATABASE_URL;
 const Account = require('../models/account');
+const CustomRecipe = require('../models/customRecipes');
 
 mongoose.connect(DATABASE_URL);
 const db = mongoose.connection;
@@ -63,19 +64,17 @@ async function saveRecipe(req, res, next) {
             res.send('Invalid token');
         } else {
             try {
-        
-                /*let testEmail = "user1@gmail.com";
-                // get the recipe id from req.body
-                let testRecipeId = '641a0ac61b6f70be82ae3e71'*/
+                
+                let recipe = req.body;
         
                 let account = await Account.findOneAndUpdate({
                     email: req.params.email
                 }, {
-                    $push: {"recipes": req.body}
+                    $push: {"recipes": recipe}
                 });
         
                 // account.push(account)
-                res.status(200).send(account);
+                res.status(200).send('account');
         
             } catch (error) {
                 next(error);

@@ -41,9 +41,8 @@ async function getOneRecipe(req, res, next) {
             res.send('Invalid token');
         } else {
             try {
-                let id = req.params.id;
-                console.log(id);
-                let recipe = await axios.get(`${API_URL}/${id}/information`, {
+        
+                let recipe = await axios.get(`${API_URL}/${req.params.id}/information`, {
                     params: {
                         apiKey: API_KEY,
                         includeNutrition: false
