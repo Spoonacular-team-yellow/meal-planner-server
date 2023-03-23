@@ -70,7 +70,7 @@ async function saveRecipe(req, res, next) {
                 let newRecipes = [...account.recipes];
                 console.log(newRecipes);
                 for (let i = 0; i < account.recipes.length; i++) {
-                    if (Object.hasOwn(account.recipes[i], '_id')) {
+                    if (Object.prototype.hasOwnProperty.call(account.recipes[i], '_id')) {
                         if (account.recipes[i]._id === req.body._id) {
                             newRecipes[i] = recipe;
                             gotSet = true;
@@ -101,7 +101,7 @@ async function removeRecipe(req, res, next) {
             res.send('Invalid token');
         } else {
             try {
-                let param = Object.hasOwn(req.body, '_id')
+                let param = Object.prototype.hasOwnProperty.call(req.body, '_id')
                 ? {"recipes": {"_id": req.body._id}}
                 : {"recipes": {"recipeId": req.body.id}};
                 console.log(param);
