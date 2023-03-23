@@ -25,11 +25,7 @@ async function getCustomRecipe(req, res, next) {
                 let id = req.params.id
         
                 let recipe = await CustomRecipe.findById(id)
-        
                 res.status(200).send(recipe);
-        
-        
-        
             } catch (error) {
                 next(error);
             }
@@ -48,16 +44,7 @@ async function createCustomRecipe(req, res, next) {
             try {
         
                 let recipe = req.body;
-                /*let recipe = {
-                    recipeId: 476338,
-                    steps: ["1", 3, 4, 478323, "tsjdkjfj"], 
-                    ingredients: [34, 4838],
-                    imageUrl: "aslkdfjasklfj",
-                    title: "new recipe",
-                    sourceUrl: "alksdfjak",
-                    sourceName: "the belly brothers"
-                }*/
-        
+
                 let newRecipe = await CustomRecipe.create({
                     recipeId: recipe.recipeId,
                     steps: recipe.steps,
@@ -105,9 +92,7 @@ async function deleteCustomRecipe(req, res, next) {
         } else {
 
             try {
-        
                 let id = req.params.id;
-        
                 await CustomRecipe.deleteOne({_id: id});
         
                 res.status(200).send('Custom recipe deleted');
