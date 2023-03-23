@@ -63,9 +63,11 @@ async function createCustomRecipe(req, res, next) {
                     steps: recipe.steps,
                     ingredients: recipe.ingredients,
                     imageUrl: recipe.imageUrl,
+                    readyInMinutes: recipe.readyInMinutes,
                     title: recipe.title,
                     sourceUrl: recipe.sourceUrl,
-                    sourceName: recipe.sourceName
+                    sourceName: recipe.sourceName,
+                    wasModified: recipe.wasModified
                 });
                 res.status(200).send(newRecipe);
         
@@ -82,7 +84,6 @@ async function updateCustomRecipe(req, res, next) {
             console.error(err);
             res.send('Invalid token');
         } else {
-
             try {
                 let id = req.params.id;
                 let updatedRecipe = req.body;
