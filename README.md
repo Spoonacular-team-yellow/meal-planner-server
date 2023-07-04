@@ -1,23 +1,15 @@
-# meal-planner-server
+# GrubGuide Server
 
-API server for meal-planner-client.
+## Description
+An API server for the GrubGuide client. This server makes use of the Spoonacular API for fetching recipe data and interfaces with MongoDB to store user accounts and saved recipes.
 
-## Collaborators
-***
-Joel Myrtil, Daniel Yoon, Ahmed Mohamed, Phillip Chaplin
+## Whiteboards
 
-## Wireframe
-***
-[Wireframe](https://files.slack.com/files-pri/T039KG69K-F04V75R0XGR/screenshot_2023-03-20_at_1.11.46_pm.png)
+![image](./DomainModel.png)
 
-## Domain Model
-***
-[Domain Model](https://files.slack.com/files-tmb/T039KG69K-F04UXKBHT60-03a11318ee/screen_shot_2023-03-20_at_3.23.21_pm_720.png)
+![image](./Schema.png)
 
-## Database Schema
-***
-
-[Database Schema](https://files.slack.com/files-pri/T039KG69K-F04UV545H26/screen_shot_2023-03-20_at_3.16.58_pm.png)
+## Schema info
 
 Account
 * This is to keep track of user accounts that have logged in through Auth0.
@@ -31,3 +23,15 @@ Recipe
 
 RecipeMod
 * This holds the custom modifications for a recipe that a user has made.
+
+## Installation
+
+* Download or clone this repository.
+* Use npm install to install dependencies.
+* Create an account for the [Spoonacular API.](https://spoonacular.com/)
+* Set up your .env file based on the .env.sample file.
+* Use npm start or nodemon to run the server.
+
+## Collaborators
+***
+Joel Myrtil, Daniel Yoon, Ahmed Mohamed, Phillip Chaplin
